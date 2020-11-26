@@ -1,0 +1,76 @@
+---
+title: "Evaluating Machine Learning Techniques for Early PTSD prognosis after Trauma using synthetic data."
+output: pdf_document
+bibliography: bib/winter_report_ref.bib
+csl: bib/apa.citation.style.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\begin{center}
+
+\textbf{Author:}
+
+\textit{Thomas J Wise}
+
+\textbf{Student Number:}
+
+\textit{6664202}  
+
+\textbf{Programme:}
+
+\textit{Methodology and Statistics for the Behavioural, Biomedical and Social Sciences}
+
+\textbf{Supervisors:}  
+
+\textit{Dr. Mirjam van Zuiden}
+
+\textit{Prof. dr. Rens van de Schoot}  
+
+\textbf{Proposed Journal of Publication:}
+
+\textit{Multivariate Behavioural Research (MBR)}: Taylor and Francis
+
+\textbf{Ethics Approval}
+
+\textit{Status Accepted: \#20-0039; Date: 09/10/2020}
+
+\textit{Status Accepted: \#20-0140; Date: 27/10/2020}
+
+\end{center}
+\newpage
+
+## Introduction 
+
+\newpage 
+
+## Methodology
+
+### Original Data 
+
+### Data Simulation 
+
+### Comparative Testing: Data Simulation Methods 
+
+### Reduction of Dimensionality 
+
+### Application of Machine Learning Techniques 
+
+### Outcome Results 
+
+### Preformance Metrics 
+
+\newpage 
+
+## Results
+
+\newpage 
+
+## Discussion 
+
+\newpage
+
+## References
+
