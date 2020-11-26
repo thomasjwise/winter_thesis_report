@@ -1,0 +1,12 @@
+---
+title: "research_presentation"
+author: "Thomas Wise"
+bibliography: ./../bib/winter_report_ref.bib
+csl: ./../bib/apa.citation.style.csl
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
