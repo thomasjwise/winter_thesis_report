@@ -31,7 +31,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 \textbf{Proposed Journal of Publication:}
 
-\textit{Multivariate Behavioural Research (MBR)}: Taylor and Francis
+\textit{Multivariate Behavioural Research (MBR)}
 
 \textbf{Ethics Approval}
 
@@ -44,147 +44,165 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction 
 
-Post-Traumatic Stress Disorder (PTSD) develops from exposure to traumatic events (accidents, mass violence, war or natural disasters), and is characterized through the re-experiencing of the event, increased physiological arousal, event associated stimuli avoidance, negative alterations in mood and cognition, culminating in a significant impairment to daily life [@american2013diagnostic; @augsburger2020utilization]. Symptom progression of PTSD can be categorized into four distinct trajectories; resilient, recovered, chronic and delayed [@galatzer2018trajectories; @van2018bayesian]. Given the significant impairment resulting from PTSD, it is paramount that clinicians are able to deliver effective interventions. One proposed method to improve this, is through the application of trajectory specific interventions. In order to deliver this however, a validated prognostic screening instrument is required, which can appropriately classify a patient into one of these trajectories. 
+One of the potential psychopathological consequences of exposure to traumatic events (accidents, mass violence, war or natural disasters) is Post-Traumatic Stress Disorder [PTSD, @breslau1991traumatic]. PTSD is characterized through an array of physical and psychological symptoms which culminate in a significant impairment to daily life [@american2013diagnostic; @augsburger2020utilization]. Condition prognosis, is not considered adequately described through the use binary diagnostic criteria. Instead though prognosis trajectories, not reliant upon diagnostic thresholds, but rather the severity and course of symptoms over time [@bonanno2013annual; @bonanno2004loss]. Current research supports the presence of four dominant trajectories which define PTSD prognosis: resilient, recovered, chronic and delayed [@bonanno2004loss; @galatzer2018trajectories; @van2018bayesian].  
 
-The proposed application of such a prognostic screening instrument is widespread. Especially when considering that the global lifetime exposure to any traumatic event is 70.4% [@benjet2016epidemiology], and the lifetime prevalence of PTSD being 11% for women and 5.5% for men [@kessler1995posttraumatic], there is a widespread need for such an instrument. In particular, this project is directly aimed towards the trajectory prediction of those who have recently been exposed to a traumatic event, through its use within emergency departments. However, to develop this prognostic screening instrument, first the identification and development of an appropriate statistical model is required. 
+Understanding these trajectories, and their predictive factors is important, given the potential effectiveness of early, targeted PTSD interventions [@kearns2012early; @freedman2020interrupting; @short2020secondary]. However, to effectively provide these targeted interventions after a traumatic event, a sufficiently validated, trajectory focused, screening instrument is required. Current research has presented several screening instruments (SPAN [@zlotnick1996validation; @meltzer1999derivation]; IES-R [@marmer1997impact]; and TSQ [@foa1993reliability]) which can predict with adequate accuracy (>0.8 Area under the Curve), PTSD diagnosis after 6 months [SPAN=0.83, IES-R=0.83, TSQ=0.82; @mouthaan2014comparing]. These however, predict whether a participant will be above the clinical threshold for PTSD, rather than their specific trajectory. Although these examples are not exhaustive, there are currently no validated trajectory focused screening instruments currently in clinical use. 
 
-To develop this model, Machine learning (ML) techniques, have the greatest potential, due to their capacity to identify complex underlying patterns within data. In particular this has been demonstrated through prognostic research in physical [@kononenko2001machine; @rajkomar2019machine, @cruz2006applications; @kourou2015machine] and psychiatric [@webb2020personalized; @passos2016identifying] medicine, with previous research also displaying its efficacy within PTSD prognosis research [@ramos2020use; @galatzer2014quantitative]. Although this multidisciplinary support exists; current research into PTSD prognosis is limited, particularly in technique comparison across different sample sizes. For PTSD this is extremely important, with ML models being typically developed using large data sets, which are classically unattainable within PTSD research. To date, the largest proposed data set, is not set to exceed 5,000 participants [@mclean2020aurora]. Even when considering international collaboration efforts, the noted constitutional and sociocultural factors involved in the development of PTSD [@yehuda2004risk] places limitations on the sample sizes which can be collected and analysised effectively. 
+To develop such an instrument, it is essential to build a statistical model; as without it can be challenging to understand the role and function of individual predictors [@taylor2010improving]. In the present study, a statistical model is required to 1) appropriately classify individuals to their specific trajectory and 2) predict this membership using predictors which are available directly after a traumatic event. To develop this model, firstly the application of a bayesian latent growth mixture model [outlined in: @zuiden_inprep] is required to estimate the trajectories of participants in the existing data. This estimation uses a participants change in Clinician Administered PTSD Scale (CAPS) scores [@blake1995development] across multiple time points to estimate their trajectory. In the present study, this estimation is used to provide the true trajectories for which the predicted membership are compared with allowing the development of Performance Metrics. 
 
-Therefore, to overcome the challenges presented regarding the limited available sample size, alongside the additional statistical issues through the application of multiple comparative statistical tests upon one data set, the use of simulated, synthetic data is proposed. The use of simulated data has been demonstrated as appropriate across the medical research field, for the usage of developing and testing prognostic and statistical models, during times when the real data cannot solely be used [@burton2006design, @ambler2002simplifying, @morris2019using]. Although understanding that the use of simulated data is required in understanding which ML technique is most appropriate, the way in which data is simulated is also of importance. Since, if the simulated data is not able to sufficiently mimic the behaviour of the original data set, then the models developed will have limited generalisability, beyond that of the data simulated, limiting the conclusions which can be drawn. Therefore, it is important to first explore which simulation method is most appropriate, between what is classified as "conventional wisdom" by @skrondal2000design, and the proposed counter through meta-models, both with and without accounting for missing data through multiple imputation. Through comparing these three simulation methods, further support can be provided for the recommendations made regarding the most appropriate ML technique, for the development of this prognostic screening instrument. 
+Secondly, predictors which will be available directly after a traumatic event (see Selection of Variables of Interest) are used as part of Machine Learning (ML) techniques to provide predictions for these trajectory memberships. The ML technique, and appropriate model derived, will than be used to develop an instrument using the most significant predictors from those selected available. 
 
-Within this intermediary report, further illumination will be provided into the planned methodological and analytical plans which can be summarized through figure 1. In particular, each section of the figure will be expanded, with key discussion points outlined. 
- 
-**INSERT FLOW DIAGRAM 1**
+Supervised ML techniques are used development of this statistical model, given their capacity to identify complex underlying patters within data. In particular, this research will evaluate 9 ML techniques (see Table 1). These have been demonstrated as effective in PTSD prognosis research [@ramos2020use; @galatzer2014quantitative] and across the more general prognosis fields of psychiatric [@webb2020personalized; @passos2016identifying] and physical [@kononenko2001machine; @rajkomar2019machine; @cruz2006applications; @kourou2015machine] medicine. A broad range of literature across prognosis research was evaluated to identify suitable ML techniques, to reduce the potential influence of publication bias arising through the isolated examination of only PTSD prognosis research. 
 
-\newpage 
+Therefore the current research will address the question: Which Machine Learning technique is most appropriate for predicting early PTSD prognosis early after Trauma, given the inherently limited sample size within the field? 
 
-## Methodology
-
-### Original Data 
-
-The data, which will provide both the foundation for the planned simulations and the data which the recommended ML technique will be applied to; is the TraumaTips data set [@mouthaan2014role]. Collected between September 2005 to March 2009, this data set contains a total of 852 patients each who experienced a traumatic injury. Each participant in the study was requested to complete a series of PTSD self-report instruments, referred to as Index Tests (SPAN [@zlotnick1996validation; @meltzer1999derivation], IES-R [@marmer1997impact], TSQ [@foa1993reliability]) alongside a semi-structured interview of the CAPS, based upon DSM-IV criteria [@blake1995development]. These measures were then taken at 5 time points (23 days (mean), 1 month, 3 months, 6 months and 12 months), after admission into the study. This data set was chosen given its ..... reflection of the wider population of PTSD patients....
+To fully address this question, several methodological issues are accounted for. Firstly, to uphold the statistical integrity of the existing data, models will be developed and tested upon synthetic simulated data. This synthetic data will use the population parameters provided by this existing data, and be generated using one of three potential simulation methods (discussed in: Data Simulation). Through the application of ML techniques on this synthetic data, rather than the existing data, this will reduce the violations to statistical integrity which result from multiple exploratory testing [@ranganathan2016common]. The use of synthetic data, generated as part of a simulation, also provides benefits to understanding the influence of sample size when comparing ML techniques. As typically in PTSD prognosis research, data is presented with inherently limited sample sizes. For example, the existing data comprises of 852 cases [@mouthaan2014comparing], whereas other research studies have examined trajectories with small-to-moderate sample sizes [min=15, max=1765, mean=343; @smid2009delayed] and the largest individual study currently proposed, being of 5,000 participants [@mclean2020aurora]. The restrictions resulting from these sample sizes, such as reduced reliability and increased cross validation errors [@varoquaux2018cross], can be overcome through the use of synthetic data. Where sample sizes can be varied, to determine the influence of the sample size on the accuracy of the model produced, to determine the optimal sample size to evaluate a specific model or the most appropriate model for a specific sample size. This specific use of synthetic data is widely supported, where prognostic and statistical models can be developed and tested during conditions when real data is unable to be used solely [@burton2006design; @ambler2002simplifying; @morris2019using]. 
 
 
-For the purpose of this study, since an understanding of PTSD symptoms progression is required, only those participants who participated at two or more time points were included within the study, reducing the total population to *522* participants. Additionally to this, other data cleaning methods were applied, these can be divided into the reclassification of variables, removal of *Non-stable questionnaires* (those which were collected with hindsight (self-report but with retrospect)) and time based-grouping. 
+![Methodological Approach Flow Diagram](<"images/thesisplan_outline_doc.png">){width=95%}
 
-#### Reclassification of Variables 
+## Methodological & Analytical Approach
 
-One of the first methods applied was the classification of string variables into categorical groups, allowing a more effective be utilization in the simulation methods and to idenitify their role in PTSD trajectory. In particular, reclassification was applied to: 
+In the following subsections, corresponding to those in Figure 1, the methodological and analytical approach is outlined. 
 
-- Sport participation before their traumatic event. Reclassified using @mitchell2005task classification of sports according to their static and dynamic components. 
-- Employment or Profession at time of traumatic event. Reclassified using Centraal Bureau voor de Statistiek (CBS) employment classification [@fouarge2015beroepenindeling].
+### Data, Overview of the Existing Database
+
+The TraumaTips data set [@mouthaan2014comparing] provides the population parameters for data simulation. This data is used as it accurately represent the wider PTSD population of recently traumatized individuals regarding subsequent PTSD development [@shalev2019estimating].
+
+Collected between September 2005 and March 2009, this data was collected to investigate the prevalence and course of PTSD after traumatic injury, and compare the validity of different prognosis screening instrument of PTSD. This data consists of 852 patients who were presenting at two level-1 trauma centers in Amsterdam (NL). Patients were excluded from the existing study if their injuries were due to self-harm, they presented with an organic brain condition, current psychotic symptoms or associated disorder, bipolar disorder or depression with psychotic features, moderate to severe traumatic brain injury or held permanent residency outside of the Netherlands. Participants were assessed at 5 time points (T1; 23 days (mean), T2; 1 month, T3; 3 months, T4; 6 months and T5; 12 months), after admission to the study. Of relevance to the current study, at T1 participants completed a range of self-report scales related to PTSD and potential risk factors, in addition to PTSD screening instruments (including SPAN [@zlotnick1996validation; @meltzer1999derivation], IES-R [@marmer1997impact], TSQ [@foa1993reliability]). At T3-T5, participants completed a clinician administered semi-structured interview, CAPS, based upon the DSM-IV criteria [@blake1995development]. 
+
+Prior to data simulation, several data cleaning methods were applied including: A) Reclassification of Variables, B) Removal of Retrospective Questionnaires, and C) Time Based-Grouping. These methods, replicated those applied in previous research [@zuiden_inprep], and make the data suitable for calculating a participants trajectory membership. Membership is calculated using a bayesian latent growth mixture model formula, applied post-simulation to the CAPS scores to provide the true membership classification for the synthetic data. 
+
+\newpage
+
+### A) Reclassification of Variables  
+
+Qualitative variables were first reclassified into categorical variables, allowing their use as quantitative variables, making them more suitable for simulation and eventual application within the machine learning models. In particular, reclassification was applied to: 
+
+- Sport participation before the traumatic event. Reclassified using @mitchell2005task classification of sports according to their static and dynamic components. 
+- Employment or Profession at the time of traumatic event. Reclassified using Centraal Bureau voor de Statistiek (CBS) employment classification [@fouarge2015beroepenindeling].
 - Psychotropic medication usage at time of traumatic event, or historically. Classification of medication in line with their general pharmaceutical classification.
 - Personal or family history of psychiatric conditions. Reclassified using major DSM-V [@american2013diagnostic] themes.
-- Relation of family members with noted psychiatric conditions. Reclassified under the broad categories of first, second or third degree relation 
+- Relation of family members with noted psychiatric conditions. Reclassified under the broad categories of first, second or third degree relation. 
 
-+ Others
+### B) Removal of Retrospective Questionnaires 
 
-#### Removal of Non-Stable Questionnaires 
+For individual cases where self-report questionnaires were reported retrospectively, this data was removed as the reliability of the data from these questionnaires is considered low. The likelihood of retrospective reporting for the self-reported PTSD screening instruments was determined through calculating the reporting date, which if different from the specified time point would support their removal. Although this increased the level of missingness within the data, it was determined that retrospective reporting would have a greater impact upon the reliability of the results and therefore the later model than the induced missingness.
 
-Removal of those variables/questionnaires which were determined with hindsight (thus invalidating them) EXPAND UPON THIS
+### C) Time Based-Grouping
 
-#### Time Based-Grouping
-
-Finally participants were regrouped according to specific time windows. This decision was based upon the idea that, if it is believed symptom progression has a temporal basis, then it is important to group together those who were recorded within specific temporal periods. For this study, as the major and desired temporal periods were, 23 days, 1 month, 3 months, 6 months and 12 months. It is proposed that the following time period (T) groupings are formed: 0-30 days (T1, <1 month), 31-90 days (T2, 1-3 months), 91-180 days (T3, 3-6 months), 181-365 (T4, 6-12months) and beyond 365 days (T5, 12 < months). The use of these groups will illustrate where PTSD symptom progression is influenced by temporal factors.
+Finally, participants were regrouped according to specific time windows of the actual timing of their assessments in relation to their traumatic event. This temporal grouping was critical for the correct application of the bayesian latent growth mixture model formula, which determined trajectory membership from CAPS score [@zuiden_inprep]. Therefore, in line with these guidelines, CAPS scores were classified according to the following time points which define the time between traumatic event and CAPS assessment: T3a, 0-60 days; T3b, 61-136 days; T4, 137-273 days and T5, 274+ days. 
 
 ### Data Simulation 
 
-Through three different data simulation methods, it is possible to determine which is most appropriate for this research, in addition to which has the greatest potential for wider application in this clinical research field. As previously mentioned, the first method will demonstrate the *conventional wisdom* [@skrondal2000design], wherein variables are considered as independent units, and thus simulated in isolation. This will be completed through firstly determining which probability distribution best describes the variables, **through comparing key indicators such as skewness and kurtosis, EXPLAIN IN MORE DETAIL**. Before simulating it using the specific parameters from the original data provided. **Provide an example??**. 
+Three methods for the generation of the synthetic data are used to determine how the data should be simulated for this study. The first methods is the *conventional wisdom* [@skrondal2000design], wherein variables are considered as independent, and thus simulated in isolation. 
 
-By contrast, the second and third model will be based upon meta-models [@skrondal2000design], which assumes observations are the product of functions between variables. An example being that a participants IES-R Score, could be predicted by a participants age, gender, traumatic incident type and severity of accident. These interconnected functions will then be able to simulate the data constructing a more appropriate simulation of an individual observation. 
+By contrast, the second and third methods use meta-models [@skrondal2000design], assuming that observations are the product of functions between variables. Given the complexity of both the use data and the development of meta-models, the R Package OpenMX [@neale2016openmx] is used to generate the underlying structural model and simulate data accordingly. 
 
-In addition to the use of a meta-model within the third model, multiple imputation will be applied to the cleaned data. Since a large amount of data will still be missing, therefore to understand whether more complete data will better mimic the original, multiple imputation through the R package MICE [@buuren2010mice] will be applied.
+In the second model missing data is retained. Whilst the third model applies multiple imputation, through the R package MICE [@buuren2010mice], to address the issue of missing data. The application of multiple imputation, will allow the evaluation of the influence of missingness on the synthetic data. 
 
-Overall, not only will this highlight which simulation method is appropriate within this clinical field, but it will also further replicate the previous work in the field of meta-modeling and data simulation, applying it to this novel data set. 
+As previously mentioned, data will be simulated using a variety of sample sizes. Specifically, these will be generated both in line with the existing data, which the synthetic data is based upon (n=852) as well as in line with smaller sample sizes (n=50) and considering large sample sizes (n=1000). The use of this range, and regular intervals accordingly, will as stated demonstrate the influence of sample size as well as enable additional conclusions to be drawn. 
 
-### Comparative Testing: Data Simulation Methods 
+At each sample size, data sets will be simulated 100 times, to address the issue of potential bias in the process of simulation. Statistical tests will be applied to each individual data set before being averaged across all 100 tests forming an estimation of the true value, based on the population parameters. 
 
-To conclude which simulation method is most appropriate for simulating the original TraumaTips data set, a series of comparative tests will be completed. And used to determine which data set both mimics and behaves similarity during statistical testing as the original. It is important to note that these tests will only be used as a proof of principle, validating the conclusions made and therefore will regard only the general outcome, with no optimization or interpretations made as a result, only comparisons of similarity will be made between the original and simulated data sets. 
+### Comparative Testing: For Data Simulation Methodology 
 
-When considering the influence of bias, each data set will be simulated 100 times, to reduce the potential influence. Additionally, the simulated data sets will not only match the size of the original data set, but also be generated with a much smaller (50 observations) and much larger (10,000 observations) sample than the original. With the intention, that this range of tested samples will further support that the applied simulation methods are sufficiently scalable, and that they are correctly deployed when simulating both large and small data sets. 
+To conclude which method of generating synthetic data both mimics and behaves similarity during statistical testing as the existing data, a series of comparative tests are applied. It is important to note that these tests are only used as a proof of principle, validating the performance of the synthetic data, with no optimization or interpretations made regarding the prognostic modeling from the selected synthetic data. As a result, only comparisons regarding similarity are made between the existing and synthetic data. 
 
-The planned comparative tests can be divided into two types: descriptive statistical tests and applied statistical tests. The first, will allow the comparison between the overall distribution of variables, whereas the applied tests will confirm the similarities in behaviour of the tests when ML techniques are applied. 
+The planned comparative tests can be divided into two types: A) Descriptive Statistical Tests and B) Applied Statistical Tests. The first, will allow the comparison between the overall distribution of variables within existing and synthetic data sets, whereas the applied tests will confirm the similarities in behaviour of the tests when ML techniques are applied to the existing and synthetic data sets. 
 
-#### Descriptive Statistical Tests
+The simulation technique which demonstrates the highest similarity to the existing data, will be used to simulate data in the next part of the research. 
 
-To examine whether the simulated data sets are similar in their distributions and results, descriptive statistical tests will be applied to a sample of the variables within the data sets. This will entail, take a subset of 10% of the variables from the original data set and comparing their core descriptive statistics (mean, sd, skewness.... etc) of their simulated counterparts. [Maybe consider more???]
+### A) Descriptive Statistical Tests
 
-#### Applied Statistical Tests 
+To examine whether the synthetic data sets are similar in their distributions, data will be taken for a subset of variables, and compared on traditional descriptive statistics (mean, standard deviation, skewness). Those which are most similar, as seen through comparative statistical testing, will be considered as closest to the existing data set. 
 
-To examine how data behaves when statistical tests are applied to them, this will be done through actively applying a ML technique (such as a decision tree, regression or SVM) to the original data, before applying the same model, using matching parameters to the simulated data sets in turn. From this, the core measures of performance (sensitivity, specificity and AUC) will be compared. Those simulated data sets most similar to the original, will have performance measure scores which are similar (when averaged across the multiple iterations and sample sizes) to the original. 
+### B) Applied Statistical Tests 
 
-Since this method, may introduce bias from the ML technique applied, as one technique may be better fitted between the models, multiple different techniques will be tested. For this research, at least two techniques will be applied, a decision tree and a SVM, these will be applied as decision trees present a simple approach to classification, whereas there is a large amount of literature supporting the use of SVMs in PTSD prognosis. 
+To examine how data behaves when statistical tests are applied to them, ML techniques are applied existing data, before applying the same model, using matching parameters to the synthetic data sets in turn. From this, the core measures of performance (sensitivity, specificity and Area Under the Curve) will be compared. Those synthetic data sets most similar to the existing data, will have performance measure scores which are similar (when averaged across the multiple iterations and sample sizes). Two techniques are applied, a decision tree, as these present a simple approach to classification, and Support Vector Machines (SVMs), given the large amount of literature supporting the use of SVMs in PTSD Prognosis [@ramos2020use; @galatzer2014quantitative]. 
 
-From these applied tests, it would be expected to output a test like that displayed in figure 2. 
+### Selection of Variables of Interest
 
-**INSERT MOCK UP CHART HERE**
+As this research provides a recommendation regarding the most appropriate statistical model to be used in the development of a trajectory focused screening instrument. The model should be based upon predictive variables which are available at the time of hospital admission. In the case of the existing data, these are self-reported measures collected at Time Points 1 and 2, and in particular those without the requirement of clinical assistance. These predictor variables can be categorized into 7 groups (Figure 2). This includes variables detailing a participants core demographic information (Age and Sex), their self-report measures (IES-R, SPAN, TSQ), their reported physical activity and employment information, information regarding the type and traumatic experience generally in addition to their physical and psychological health histories. 
 
+The developed model predicts a participants trajectory, as calculated by the bayesian latent growth mixture model [@zuiden_inprep]. These trajectories are determined using a participants CAPS score over time. Therefore, the clinical scores from the CAPS interviews are selected as parts of these variables of interest. 
 
-### Reduction of Dimensionality 
-
-As the aim of the wider project, is to create a screening instrument for those entering psychiatric care shortly after a traumatic event, it is important to reduce the dimensions of the selected simulated data. Through this reduction, only those variables which will be available to the clinical professionals will be considered as variables of interest, for developing the ML model. At this time, it is proposed that these variables of interest will be those easily self-reported without clinical interventions, such as the previously highlighted index tests (IES-R, SPAN, TSQ), core demographic information (age, sex, incident type). Alongside these variables of interest, it will also be important to retain the trajectory classification, alongside other outcome variables which will be used in the development, training and testing of the ML model. 
-
-Although it could be proposed that this reduction of dimensionality, after data simulation will be computationally intensive (as more data will be required to be simulated). It should be noted that though ensuring these planned removed variables are included in the simulation process, will help to provide a more comprehensive simulation, in particular for those developed using a meta-model. 
-
-### Application of Machine Learning Techniques 
-
-To make sufficient recommendations regarding which ML technique should be used on the original TraumaTips data set, before a screening instrument is developed. A variety of different techniques which have been demonstrated as successfully across PTSD prognosis research, as well as in both psychiatric and wider physical medical research. The examined techniques can be divided into classification or regression techniques, based upon their outcome measure. The planned techniques, their R packages as well as additional notes can be summarized in Table 1. 
-
-**TABLE 1** 
-
-In practical terms, these techniques will be examined both in their non-optimized and optimized forms, in order to illustrate the methodological process behind how the results were gathered. This is particularly important to ensure that the process and conclusions drawn can be understood by those looking to expand upon this research, and develop the screening instrument hereafter. Furthermore, similar to the procedure outlined for comparing simulated data sets, these ML techniques will be applied across a variety of sample sizes (between 50-10,000) in order to examine how key performance indicators (detailed in section: Performance Metrics) are impacted by the sample size. Additionally, this process will be repeated up to 1,000 prior to formal publication, with at least 100 iterations being completed before publication of the final report. The use of such a large amount of iterations is important to reduce random effects and therefore the influence of bias on the prediction model. 
-
-**GENERAL TABLE CONTENTS** 
-
-Proposed Techniques (general)
-
-- SVM: e1071
-- Regression: functions: glm(), lm() (Additional functions should be considered)
-- K-nearest Neighbour (KNN): class 
-- Decision Trees: 
-  - Decision Trees (Recursive Partitioning): tree
-  - Random Forests: randomForest / ranger
-  - XGBoosted Trees: xgboost 
-- Neural Networks: neuralnet ?? 
-
-- Naive Bayes (//) - 
-
-Additional Notes: 
-
-Ensure to illustrate my understanding that each method is likely to generate a different "type" of outcome. 
-- For example, SVM = Classification (SVM) or Regression (SVR), 
-  Decision Trees/Random Forests, can be either/or
-  
+![Variables of Interest Summary](<"images/varofint_diagram.png">){height=50%}
 
 ### Outcome Results 
 
-1. Detail/Review the proposed outcome results. 
-2. Highlight individually the adv/disadv of each 
-  2a. Class only, + Typically used in the field - Limited on cat only (no wiggle room)
-  2b. Class from Probabiliy + includes wiggle room, useful for clinical practice - must consider specific thresholds, for example 33% vs 32% is this significantly different
-  2c. Probability only + Wiggle room, advanced analysis, - Difficult clinical use, may be challenging to determine outcome results 
-  2d. Final Distribution of variables, + good for seeing overall trends, - may not reflect true nature of the individual(s)
-3. 
+Considering that a participants true trajectory can be considered as either a categorical trajectory classification, or numeric probability of trajectory membership. When developing the predictive model, three potential outcomes can be derived through ML techniques. Considering these different potential outcomes is important, with each providing clear advantages and disadvantages both methodological and through the potential application of model. These three potential outcome paths can be summarized as: A) Considering only the trajectory class, B) Deriving the trajectory class from the probability produced, and C) Comparing only the final distribution of the population, not comparing individual cases. 
 
-(Evenly split distribution - may not matter individually - adaptive/mal) 
+### A) Trajectory Classes Only 
 
-### Preformance Metrics 
+This path would predict a participants trajectory only as a categorical classification. As a multinomial approach, in practice this would provide the simplest comparison through comparing the predicted categorical classification to that of the true value determined from the CAPS score. 
 
-Outline what metrics will be used, and why they will be used
+Although having the most direct clinical application, providing a clear indication to the user which trajectory class they present in. This is problematic, as it presents with no margin of error between trajectory classes. Meaning it is not possible to determine how close a participant is to other trajectory classes as only a single trajectory is provided. 
 
-Sensitivity / Specificity / AUC - All used frequently within Psychiatrical/PTSD ML Research
-Detail how these will be interpreted / what results or outcomes we will be specifically looking for. 
+### B) Derived Trajectory Classes
 
-Discuss thresholds of interest - "we hope to see.... below/above specific threshold". 
+In contrast to A, this path would predict the probability of trajectory membership, before deriving the trajectory class from the highest probability. In practice, this outcome path behaves most similarly to the calculation which derives the true trajectory, through deriving a trajectory class from the highest probability [@zuiden_inprep]. 
+
+In addition to having the direct clinical application through providing a clear indication to the user which trajectory class they present in. This path also overcome the issue regarding the margin of error present in A, as this allows the user, or associated clinical professional to see the probability of membership into other trajectory categories. However, this also presents some potential issues regarding those who score similarly between one or more classes, for example 33% vs 32%. The impact, and ways to address these similarities is a topic for future research as without specific examples of the likelihood and conditions this occurs, only speculations can be made. 
+
+Finally, some methodological concerns can also be raised regarding the calculation of Performance Metrics, given the comparison of continuous variables, through trajectory probability membership. Although these can still be easily calculated comparing the derived classes from the probabilities, further investigation should be made into the most effective methodology to compare these probabilities. However, the use of both categorical and continuous outcome variables, similar to those of the original trajectory calculation presents the highest degree of potential for future application. 
+
+### C) Final Population Distribution 
+
+Finally, rather than comparing individuals within the population, this comparison would be made only for the distribution of individuals in each category. This cumulative approach, has the least amount of clinical application, however presents the greatest potential for demonstrating population distributions in PTSD. In practice, to derive these population distributions, either path A or B could be used, before distributions are calculated accordingly. Overall, although useful for future research, this is only useful when considering application alongside one of the aforementioned paths. 
 
 
-\newpage 
 
-## Results
+As a whole, these methods are being considered both individually and in combination, with a combination of B and C being presented as most useful through providing specific individual level detail, alongside the population wide distributions. However as specifying the exact outcome path would limit the ML techniques to only those producing a numeric result (no binary or multinomial). Until all the discussed techniques can be applied, pathway A should not be withdrawn as a suitable outcome result, with multinomial results presenting prominently in the wider prognosis research for PTSD [@ramos2020use].
 
-\newpage 
 
-## Discussion 
+### Application of Machine Learning Techniques 
+
+To make sufficient recommendations regarding the most appropriate ML technique for deriving a statistical model. A variety of different techniques are applied which are supported in previous research across PTSD prognosis research as well as both psychiatric and wider physical medical research. Alongside this, these techniques are selected based upon their outcome results, with classification techniques providing a nominal or binary outcome and regression techniques providing numeric, continuous outcomes. This, as highlighted in the Outcome Results section, is important in the way in which the the model recommendations are made due to the results produced. Table 1 summarizes the planned techniques, their R packages as well as their outcome measures.
+
+\newpage
+
+Table 1: Summary of Machine Learning Techniques
+
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| **Machine Learning Technique**  | **R Package**            | **R Function**  | **Outcome Result Type**     |
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| Support Vector Machines (SVMs)  | e1071 [@e1071_r]         | *svm()*         | Classification              |
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| Support Vector Regression (SVR) | e1071 [@e1071_r]         | *svm()*         | Regression                  |  
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| Regression (Multivariate)       | stat [@rcore]            | *glm(), lm()*   | Regression                  |
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| Regression (Logistic)           | stat [@rcore]            | *glm()*         | Classification              |
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| K-Nearest Neighbour             | class [@classpak]        | *knn()*         | Regression / Classification |
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| Decision Trees (Recursive)      | tree [@treepak]          | *tree()*        | Regression / Classification |
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| Decision Trees (Random Forest)  | randomForest [@Rforpak]  | *randomForest()*| Regression / Classification |
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| Decision Trees (XGBoosted)      | xgboost [@xgboostpak]    | *xgb.train()*   | Regression / Classification |
++---------------------------------+--------------------------+-----------------+-----------------------------+
+| Neural Networks                 | nnet [@classpak]         | *nnet()*        | Regression / Classification |
++---------------------------------+--------------------------+-----------------+-----------------------------+
+
+These techniques are applied using a K-Fold cross validation (KCV) technique [@stone1974cross] to a range of different sized synthetic simulated data (n=50 to n=10000). The use of the KCV resampling technique, is completed to assist in the evaluation of the applied ML technique. Whereas the range of sample sizes, is used to investigate the influence it has upon key performance indicators (see Performance Metrics). Additionally, each ML technique will be applied across 100 different synthetic data sets of each size, to reduce the influence of random effects on the models generated. 
+
+### Performance Metrics 
+
+
+The performance metrics of sensitivity, specificity and Area under the Curve (AUC) are used when discussing model performance. These metrics were selected primarily due to their presence in the field of clinical research [@dwyer2018machine], thus making this research accessible to other researchers. But also to draw effective comparisons between previous research which has examined PTSD prognosis specifically [@ramos2020use]. These metrics will be displayed visually (as seen in figure 3), displaying both the mean and a subset of individual simulations. 
+
+![Mock Up Results Performance Metrics](<"images/sizemodel_plot.png">){width=95%}
+
+From this, several questions will be addressed:
+
+- 1) Which technique has the highest overall metric (across all three measures) at the proposed Traumatips sample size (n=852).
+- 2) Which technique has the highest overall metric, regardless of sample size. 
+- 3) Which technique has the highest overall metric below the proposed Traumatips sample size, and how does this change as the size increases?
+
+Through addressing these specific questions, recommendations regarding which ML technique is most appropriate for the development of this statistical model can be made. These recommendations will provide the foundation for the trajectory focused screening instrument to be developed from, using the Traumatips data set. Due to the scope of this research, it is likely that multiple methods will be recommended, however the potential advantages and disadvantages of these methods will be discussed in the recommendations made. 
+
 
 \newpage
 
